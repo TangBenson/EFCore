@@ -11,6 +11,6 @@ namespace EFCore.Entities
         public DateTime OrderDate { get; set; } = DateTime.Now;
         public string Status { get; set; } = "";
         public int TotalPrice { get; set; }
-        public List<OrderDetail> OrderDetails { get; set; }
+        public List<OrderDetail> OrderDetails { get; set; } = new();
     }
 }

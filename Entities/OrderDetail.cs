@@ -11,6 +11,6 @@ namespace EFCore.Entities
         public string Product { get; set; } = "";
         public int Amount { get; set; }
         public int Price { get; set; }
-        public Order Order { get; set; }
+        public Order Order { get; set; } = new();
     }
 }
