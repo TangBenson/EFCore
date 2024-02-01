@@ -13,15 +13,16 @@ namespace EFCore.Migrations
                 name: "TbCustomer",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Cid = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PHone = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    BuyCount = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TbCustomer", x => x.Id);
+                    table.PrimaryKey("PK_TbCustomer", x => x.Cid);
                 });
 
             migrationBuilder.CreateTable(
@@ -43,28 +44,14 @@ namespace EFCore.Migrations
                 name: "TbProduct",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    Pid = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false),
-                    SupplierId = table.Column<int>(type: "int", nullable: false)
+                    Price = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_TbProduct", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "TbSupplier",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    SupplierName = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_TbSupplier", x => x.Id);
+                    table.PrimaryKey("PK_TbProduct", x => x.Pid);
                 });
 
             migrationBuilder.CreateTable(
@@ -74,7 +61,6 @@ namespace EFCore.Migrations
                     Ids = table.Column<int>(type: "int", nullable: false),
                     Product = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Amount = table.Column<int>(type: "int", nullable: false),
-                    Price = table.Column<int>(type: "int", nullable: false),
                     OrderId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -108,9 +94,6 @@ namespace EFCore.Migrations
 
             migrationBuilder.DropTable(
                 name: "TbProduct");
-
-            migrationBuilder.DropTable(
-                name: "TbSupplier");
 
             migrationBuilder.DropTable(
                 name: "TbOrder");

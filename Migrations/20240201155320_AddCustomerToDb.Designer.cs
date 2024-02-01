@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EFCore.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20240127084739_AddCustomerToDb")]
+    [Migration("20240201155320_AddCustomerToDb")]
     partial class AddCustomerToDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,15 +26,18 @@ namespace EFCore.Migrations
 
             modelBuilder.Entity("EFCore.Entities.Customer", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("Cid")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Cid"), 1L, 1);
 
                     b.Property<string>("Address")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("BuyCount")
+                        .HasColumnType("int");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -44,7 +47,7 @@ namespace EFCore.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("Cid");
 
                     b.ToTable("TbCustomer", (string)null);
                 });
@@ -87,9 +90,6 @@ namespace EFCore.Migrations
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
-
                     b.Property<string>("Product")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -101,11 +101,11 @@ namespace EFCore.Migrations
 
             modelBuilder.Entity("EFCore.Entities.Product", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("Pid")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Pid"), 1L, 1);
 
                     b.Property<int>("Price")
                         .HasColumnType("int");
@@ -114,29 +114,9 @@ namespace EFCore.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SupplierId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
+                    b.HasKey("Pid");
 
                     b.ToTable("TbProduct", (string)null);
-                });
-
-            modelBuilder.Entity("EFCore.Entities.Supplier", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("SupplierName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("TbSupplier", (string)null);
                 });
 
             modelBuilder.Entity("EFCore.Entities.OrderDetail", b =>

@@ -16,11 +16,15 @@ namespace EFCore
         public DbSet<OrderDetail> OrderDetails { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<Customer> Customers { get; set; }
-        public DbSet<Supplier> Suppliers { get; set; }
 
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            //設定Id為識別欄位
+            modelBuilder.Entity<Order>()
+                .Property(o => o.Id)
+                .ValueGeneratedOnAdd();
+
             modelBuilder.Entity<Order>()
                 .ToTable("TbOrder") //指定表名
                 .HasKey(o => o.Id); //指定主键
@@ -46,13 +50,21 @@ namespace EFCore
                 .HasNoKey(); // 指定沒有主鍵
             
             modelBuilder.Entity<Customer>()
-                .ToTable("TbCustomer");
+                .ToTable("TbCustomer")
+                .HasKey(o => o.Cid);
+
+            modelBuilder.Entity<Customer>()
+                .Property(o => o.Cid)
+                .ValueGeneratedOnAdd();
             
             modelBuilder.Entity<Product>()
-                .ToTable("TbProduct");
+                .ToTable("TbProduct")
+                .HasKey(o => o.Pid);
             
-            modelBuilder.Entity<Supplier>()
-                .ToTable("TbSupplier");
+            modelBuilder.Entity<Product>()
+                .Property(o => o.Pid)
+                .ValueGeneratedOnAdd();
+            
         }
 
     }

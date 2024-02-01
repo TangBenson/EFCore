@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace EFCore.Service
 {
-    public interface ICrudService<T> where T : class
+    public interface ICrudService
     {
-        Task<string> CreateData(T data);
-        Task<string> GetData();
+        Task<string> CreateData(object data);
+        string GetData(int id);
     }
 }

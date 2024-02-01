@@ -7,23 +7,23 @@ using EFCore.Repository;
 
 namespace EFCore.Service
 {
-    public class CrudService<T> : ICrudService<T> where T : class
+    public class CrudService : ICrudService
     {
 
-        private readonly IRepository<T> _repository;
-        public CrudService(IRepository<T> repository)
+        private readonly IRepository _repository;
+        public CrudService(IRepository repository)
         {
             _repository = repository;
         }
 
-        public async Task<string> CreateData(T data)
+        public async Task<string> CreateData(object data)
         {
-            string result = await _repository.InsertOther(data);
+            string result = await _repository.InsertData(data);
             return result;
         }
-        public async Task<string> GetData()
+        public string GetData(int id)
         {
-            string result = await _repository.SelectData();
+            _ = _repository.SelectData(id);
             return "GetData";
         }
     }

@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace EFCore.Repository
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository
     {
-        Task<String> InsertOther(T data);
-        Task<String> SelectData();
+        Task<String> InsertData(object data);
+        String SelectData(int id);
     }
 }
