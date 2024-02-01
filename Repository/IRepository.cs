@@ -8,5 +8,6 @@ namespace EFCore.Repository
     public interface IRepository<T> where T : class
     {
         Task<String> InsertOther(T data);
+        Task<String> SelectData();
     }
 }

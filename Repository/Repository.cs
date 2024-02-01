@@ -13,6 +13,12 @@ namespace EFCore.Repository
         {
             _context = context;
         }
+        public async Task<string> SelectData()
+        {
+            var data = _context.Orders;
+
+            return "SelectData";
+        }
 
         public async Task<string> InsertOther(T data)
         {
