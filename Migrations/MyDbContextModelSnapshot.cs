@@ -79,10 +79,13 @@ namespace EFCore.Migrations
 
             modelBuilder.Entity("EFCore.Entities.OrderDetail", b =>
                 {
-                    b.Property<int>("Amount")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("Ids")
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<int>("Amount")
                         .HasColumnType("int");
 
                     b.Property<int>("OrderId")
@@ -91,6 +94,8 @@ namespace EFCore.Migrations
                     b.Property<string>("Product")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("OrderId");
 

@@ -27,7 +27,7 @@ namespace EFCore
 
             modelBuilder.Entity<Order>()
                 .ToTable("TbOrder") //指定表名
-                .HasKey(o => o.Id); //指定主键
+                .HasKey(o => o.Id); //指定主键，其實預設就是抓Id欄位，除非你的主鍵不是叫Id
 
             // 設定表的索引
             modelBuilder.Entity<Order>().HasIndex(o => o.Id);
@@ -40,14 +40,16 @@ namespace EFCore
             modelBuilder.Entity<Order>()
                 .HasMany(o => o.OrderDetails)
                 .WithOne(od => od.Order)
-                .HasForeignKey(od => od.Ids);
+                .HasForeignKey(od => od.OrderId);
             
             //忽略了OrderDetails屬性。不會被映射到資料庫的表格中
             modelBuilder.Entity<Order>().Ignore(o => o.OrderDetails);
 
+            //efcore若不設定主鍵(設定HasNoKey)，會無法對table追蹤，也就不能做增刪改查
             modelBuilder.Entity<OrderDetail>()
                 .ToTable("TbOrderDetail")
-                .HasNoKey(); // 指定沒有主鍵
+                .HasKey(od => od.Id);
+                // .HasNoKey();
             
             modelBuilder.Entity<Customer>()
                 .ToTable("TbCustomer")
